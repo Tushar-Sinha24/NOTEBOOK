@@ -70,7 +70,7 @@ router.put('/updatenote/:id', fetchuser ,async(req,res)=>{
 
 
 //Route 4: Delete a note using DELETE  "/api/notes/deltenote" . Login reuired
-router.put('/deletenote/:id', fetchuser ,async(req,res)=>{
+router.delete('/deletenote/:id', fetchuser ,async(req,res)=>{
 
 
     //finding the note to be deleted
