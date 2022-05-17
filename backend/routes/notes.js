@@ -89,7 +89,7 @@ router.put('/deletenote/:id', fetchuser ,async(req,res)=>{
     res.json({"Success":"Noted deleted" })
     } catch (error) {
         console.log(error.message);
-            res.status(500).send("Internal Server error");
+            res.status(500).send("Internal Server error");  
     }
 })
 

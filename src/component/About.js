@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
+import React, { useContext, useEffect } from 'react'
 
-export class About extends Component {
-  render() {
+const About =() =>{
+  
     return (
       <div>
-        About
+        This is about 
       </div>
     )
-  }
 }
 
 export default About
