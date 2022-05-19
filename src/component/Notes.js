@@ -1,25 +1,68 @@
-import React , { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import noteContext from '../context/notes/noteContext';
+import Popup from '../modal/Popup';
+
 import AddNote from './AddNote';
 import Notesitem from './Notesitem';
 
 function Notes() {
-    const context=useContext(noteContext)
-    const {notes ,getNotes}=context;
-    useEffect(()=>{
-      getNotes()
-    },[]);
+
+  const [popup, setPopup]=useState(false)
+  const [note, setNote]=useState({id:"" ,etitle:"", edescription:"",etag:"default"})
+
+  const context = useContext(noteContext)
+  const { notes, getNotes ,editNote } = context;
+  useEffect(() => {
+    getNotes()
+    // eslint-disable-next-line
+  }, []);
+ 
+  const updateNote = (_note) => {
+    setPopup(true)
+    setNote({id:_note.id ,etitle:_note.title,edescription:_note.description,etag:_note.tag})
+  }
+
+  
+
+  const handleSubmit=(e)=>{
+    editNote(note.id,note.etitle,note.edescription,note.etag)
+    e.preventDefault();
+}
+
+const onChange = (e) =>{
+    setNote({...note,[e.target.name]:e.target.value})
+    
+}
+ 
   return (
     <>
-    <AddNote/>
-    <div>
+
+      <AddNote />
+
+      
+
       <div className="row my-4">
         <h1>Your Notes</h1>
-        {notes.map((notes)=>{
-          return <Notesitem key={notes._id} note={notes}/>;
+        {notes.map((notes) => {
+          return <Notesitem key={notes._id} updateNote={updateNote} note={notes} />;
         })}
-        </div>
-    </div>
+      </div>
+
+      <Popup trigger={popup} setTrigger={setPopup} >
+        <h3>Edit Notes</h3>
+        <form>
+          <div className="mb-3">
+            <label htmlFor="title" className="form-label">Title</label>
+            <input type="text" className="form-control" id="etitle"  name="etitle" aria-describedby="emailHelp" onChange={onChange} defaultValue={note.etitle} />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="description" className="form-label">Description</label>
+            <input type="text" className="form-control" id="edescription" name='edescription' onChange={onChange} defaultValue={note.edescription} />
+          </div>
+          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Edit</button>
+        </form>
+      </Popup>
+
     </>
   )
 }
