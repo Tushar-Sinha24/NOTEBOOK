@@ -8,7 +8,7 @@ import Notesitem from './Notesitem';
 function Notes() {
 
   const [popup, setPopup]=useState(false)
-  const [note, setNote]=useState({id:"" ,etitle:"", edescription:"",etag:"default"})
+  const [note, setNote]=useState({_id:"" ,etitle:"", edescription:"",etag:"default"})
 
   const context = useContext(noteContext)
   const { notes, getNotes ,editNote } = context;
@@ -19,14 +19,16 @@ function Notes() {
  
   const updateNote = (_note) => {
     setPopup(true)
-    setNote({id:_note.id ,etitle:_note.title,edescription:_note.description,etag:_note.tag})
+    console.log(_note)
+    setNote({_id:_note._id ,etitle:_note.title,edescription:_note.description,etag:_note.tag})
   }
 
   
 
   const handleSubmit=(e)=>{
-    editNote(note.id,note.etitle,note.edescription,note.etag)
-    e.preventDefault();
+    editNote(note._id,note.etitle,note.edescription,note.etag)
+    e.preventDefault()
+    setPopup(false)
 }
 
 const onChange = (e) =>{
@@ -38,9 +40,6 @@ const onChange = (e) =>{
     <>
 
       <AddNote />
-
-      
-
       <div className="row my-4">
         <h1>Your Notes</h1>
         {notes.map((notes) => {

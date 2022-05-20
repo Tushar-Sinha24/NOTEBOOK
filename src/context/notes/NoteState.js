@@ -37,6 +37,8 @@ const NoteState =(props)=> {
           },
           body: JSON.stringify({title , description, tag}) 
         });
+        const json=await response.json(); 
+        console.log(json)
 
         const note={
           "_id": "62829b3dcfb7e827bq82a9derd",
@@ -63,6 +65,7 @@ const NoteState =(props)=> {
           },
         });
         const json=await response.json(); 
+        console.log(json)
 
         const newNotes =notes.filter((note)=>{return note._id!==id})
         setNotes(newNotes)
@@ -76,18 +79,19 @@ const NoteState =(props)=> {
         //Api Call
         
         const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-          method: 'POST',
+          method: 'PUT',
            headers: {
             'Content-Type': 'application/json',
             'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI3Y2YxNjljOTk1NzRiYWU5YjljMzAxIn0sImlhdCI6MTY1MjM1NTQ0M30.m9bH0xBK7bhwCWQ9bK39HEhQjHUJOioQxF6sMcBrOCY'
           },
           body: JSON.stringify({title , description, tag}) 
         });
-        const json= response.json(); 
+        const json=await response.json(); 
+        console.log(json)
       
       //Logic to edit the client
         for (let index = 0; index < notes.length; index++) {
-          const element = notes[index];
+          let element = notes[index];
           if(element._id ===id){
             element.title=title;
             element.description=description;
