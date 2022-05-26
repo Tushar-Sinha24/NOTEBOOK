@@ -7,35 +7,39 @@ import Notesitem from './Notesitem';
 
 function Notes() {
 
-  const [popup, setPopup]=useState(false)
-  const [note, setNote]=useState({_id:"" ,etitle:"", edescription:"",etag:"default"})
+  const [popup, setPopup] = useState(false)
+  const [note, setNote] = useState({ _id: "", etitle: "", edescription: "", etag: "default" })
 
   const context = useContext(noteContext)
-  const { notes, getNotes ,editNote } = context;
+  const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes()
     // eslint-disable-next-line
   }, []);
- 
-  const updateNote = (_note) => {
-    setPopup(true)
-    console.log(_note)
-    setNote({_id:_note._id ,etitle:_note.title,edescription:_note.description,etag:_note.tag})
-  }
 
   
 
-  const handleSubmit=(e)=>{
-    editNote(note._id,note.etitle,note.edescription,note.etag)
+  const updateNote = (_note) => {
+    setPopup(true)
+    
+    setNote({ _id: _note._id, etitle: _note.title, edescription: _note.description, etag: _note.tag })
+  }
+
+
+
+  const handleSubmit = (e) => {
+    editNote(note._id, note.etitle, note.edescription, note.etag)
     e.preventDefault()
     setPopup(false)
-}
-
-const onChange = (e) =>{
-    setNote({...note,[e.target.name]:e.target.value})
     
-}
- 
+    
+  }
+
+  const onChange = (e) => {
+    setNote({ ...note, [e.target.name]: e.target.value })
+
+  }
+
   return (
     <>
 
@@ -52,11 +56,11 @@ const onChange = (e) =>{
         <form>
           <div className="mb-3">
             <label htmlFor="title" className="form-label">Title</label>
-            <input type="text" className="form-control" id="etitle"  name="etitle" aria-describedby="emailHelp" onChange={onChange} defaultValue={note.etitle} />
+            <input type="text" className="form-control" id="etitle" name="etitle" aria-describedby="emailHelp" onChange={onChange} defaultValue={note.etitle} minLength={5} required />
           </div>
           <div className="mb-3">
             <label htmlFor="description" className="form-label">Description</label>
-            <input type="text" className="form-control" id="edescription" name='edescription' onChange={onChange} defaultValue={note.edescription} />
+            <input type="text" className="form-control" id="edescription" name='edescription' onChange={onChange} defaultValue={note.edescription} minLength ={5} required/>
           </div>
           <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Edit</button>
         </form>

@@ -2,12 +2,12 @@ import React from 'react'
 
 function Alert(props) {
   return (
-    <div>
-      <div className="alert alert-primary" role="alert">
-  {props.message}
-</div>
-
-    </div>
+      <div style={{height: '40px'}}>
+       {props.alert && <div className="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{props.alert.type}:</strong> {props.alert.msg}
+      </div>  }
+      </div>
+    
   )
 }
 
