@@ -17,23 +17,21 @@ const SignUp = (props) => {
       body: JSON.stringify({ name,email,password })
     });
     const json = await response.json();
-    console.log(json)
+    console.log(json);
     if (json.success) {
       //save the auth token and redirect
-      localStorage.setItem('token', json.token)
+      localStorage.setItem('token', json.token);
       navigate('/');
       props.showAlert("Successfully Loged in","success");
     }
     else {
-      props.showAlert("Invalid Credential","danger")
+      props.showAlert("Invalid Credential","danger");
     }
   }
 
   const onChange = (e) => {
-    setCredential({ ...credential, [e.target.name]: e.target.value })
-
+    setCredential({ ...credential, [e.target.name]: e.target.value})
   }
-
 
   return (
     <div style={{ display: "flex", position: "absolute", top: '0', left: "0", height: '100%', width: "100%" }}>
@@ -45,7 +43,7 @@ const SignUp = (props) => {
           <form className="my-4 mx-2" onSubmit={handleSignup}>
             <div className="form-group ">
               <label htmlFor="name">Full Name</label>
-              <input type="text" className="form-control" id="name" name="name" aria-describedby="name" placeholder="Enter Your full name" onChange={onChange} />
+              <input type="text" className="form-control" id="name" name="name" aria-describedby="name" placeholder= "Enter Your full name" onChange={onChange} />
             </div>
             <div className="form-group ">
               <label htmlFor="email">Email address</label>

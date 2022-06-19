@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import noteContext from '../context/notes/noteContext';
 import Popup from '../modal/Popup';
 
@@ -6,14 +7,20 @@ import AddNote from './AddNote';
 import Notesitem from './Notesitem';
 
 function Notes() {
-
+  const navigate=useNavigate();
   const [popup, setPopup] = useState(false)
   const [note, setNote] = useState({ _id: "", etitle: "", edescription: "", etag: "default" })
 
   const context = useContext(noteContext)
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
-    getNotes()
+    if(localStorage.getItem('token')){
+
+      getNotes()
+    }
+    else{
+      navigate('/login')
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -46,6 +53,9 @@ function Notes() {
       <AddNote />
       <div className="row my-4">
         <h1>Your Notes</h1>
+        <div className="container mx-2"> 
+                {notes.length===0 && 'No notes to display'}
+          </div>
         {notes.map((notes) => {
           return <Notesitem key={notes._id} updateNote={updateNote} note={notes} />;
         })}
